@@ -1,0 +1,73 @@
+{% extends "base-2.html" %}
+{% block head_js %}
+    <link href="{{ url_for('static', filename='bootstrap-3.3.0/dist/css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='bootstrap-3.3.0/dist/css/datatables2.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='bootstrap-3.3.0/dist/js/datatables2.js') }}"></script>
+{% endblock %}
+{% block body_div %}
+<!------------------左侧栏----------------------->
+<div class="container-fluid">
+      <div class="row"-->
+        <div class="col-sm-3 col-md-2 sidebar"-->
+        <div class="collapse navbar-collapse navbar-inverse">
+        </div>
+        <button class="btn btn-lg btn-default btn-block" type="reset">用  户</button>
+        <div>
+        <form  method='post'>
+        <input name="name" class="form-control" placeholder="姓名" >
+        <input name="passwd" class="form-control" placeholder="密码" >
+        <input name="age" class="form-control" placeholder="年龄" >
+        <select class="form-control" name="bm">
+         {% for i in gps %}
+         <option value="{{i['user_group']}}">{{i['user_group']}}</option>
+         {% endfor %}
+         </select>
+        <button class="btn btn-lg btn-default btn-block" type="submit" name='cmd' value='add_user'>添加</button>
+        <button class="btn btn-lg btn-default btn-block" type="reset">重置</button>
+        </form>
+        </div>
+        <div>
+        <form  method='post'>
+        <input name="new_group" class="form-control" placeholder="新组的名称" >
+        <button class="btn btn-lg btn-default btn-block" type="submit" name='cmd' value='add_group'>添加组</button>
+        <button class="btn btn-lg btn-default btn-block" type="submit" name='cmd' value='del_group'>删除组</button>
+        </form>
+        </div>
+</div>
+</div>
+<!------------------左侧栏----------------------->
+ <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <table id="user_list" class="display" cellspacing="0" width="100%">
+    <thead><tr><th>ID</th><th>姓名</th><th>口令</th><th>年龄</th><th>部门</th><th>注册时间</th><th>操作</th><th>操作</th></tr></thead>
+    <tbody>
+   {%  for i in data %}
+         <tr>
+            <td>{{i['_id']}}</td>
+           <td>{{i['name']}}</td>
+           <td>{{i['passwd']}}</td>
+           <td>{{i['age']}}</td>
+           <td>{{i['bm']}}</td>
+           <td>{{i['date']}}</td>
+           <td>
+           <a href="/mod_user/{{i['_id']}}"><button type="button" class="btn btn-sm btn-default">修改</button></a></td>
+           <td>
+            <a href="/delete/{{i['_id']}}"><button type="button" class="btn btn-sm btn-default">删除</button></a>
+            </td>
+         </tr>   
+     {% endfor %}      
+        
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block body_js %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#user_list').dataTable({
+            "language": {
+                "url": "http://cdn.datatables.net/plug-ins/e9421181788/i18n/Chinese.json"
+            }
+        });
+    });
+</script>
+{% endblock %}

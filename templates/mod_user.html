@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block head_js %}
+<link href="{{ url_for('static', filename='bootstrap-3.3.0/dist/css/signin.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body_div %}
+ <div class="container">
+ <div class="jumbotron">
+ <label><h2>提醒：</h2>若增加填写相应的信息后点击[增加]按钮即可。
+ <form class="form-signin" role="form" method='post'>
+ <table>
+     <tr><td>名称:</td><td><input class="form-control" name='name' value={{ data['name'] }}><td></tr>
+     <tr><td>口令:</td><td><input class="form-control" name='passwd' value={{ data['passwd'] }}><td></tr>
+     <tr><td>年龄:</td><td><input class="form-control" name='age' value={{ data['age'] }}><td></tr>
+     <tr><td>部门:</td><td><input class="form-control" name='bm' value={{ data['bm'] }}><td></tr>
+     <tr><td>注册时间:</td><td><input class="form-control"  name='date' value={{ data['date'] }}><td></tr>
+     <tr><td>修改时间:</td><td><input class="form-control" name='mod_date' value={{ data['mod_date'] }}><td></tr>
+ </table>
+  <button class="btn btn-lg btn-default btn-block" type="submit" name="cmd" value="update">更新</button>
+  <button class="btn btn-lg btn-default btn-block" type="submit" name="cmd" value="add">新增</button>
+ </form>
+ </label>
+    </div>
+    </div> <!-- /container -->
+{% endblock %}
